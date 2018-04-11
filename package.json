@@ -5,7 +5,10 @@
   "dependencies": {
     "dotenv": "^5.0.1",
     "micro": "^9.1.4",
-    "microauth-slack": "0.0.2"
+    "microrouter": "^3.1.1",
+    "qs": "^6.5.1",
+    "request": "^2.85.0",
+    "request-promise": "^4.2.2"
   },
   "devDependencies": {
     "prettier": "^1.11.1"
