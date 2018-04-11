@@ -10,18 +10,23 @@ const {
   CLIENT_ID: clientId,
   CLIENT_SECRET: clientSecret,
   AUTH_HOST: authHost,
-  APP_URL: appUrl
+  APP_URL: appUrl,
+  NODE_ENV
 } = process.env
 
 const paths = {
   token: '/token',
-  auth: '/auth'
+  auth: '/'
 }
 
 const redirect = (res, location) => {
   res.statusCode = 302
   res.setHeader('Location', location)
   res.end()
+}
+
+if (NODE_ENV !== 'production') {
+  console.log(authHost + paths.auth)
 }
 
 module.exports = router(
@@ -52,6 +57,6 @@ module.exports = router(
       }
     })
 
-    redirect(res, `${appUrl}?${qs.stringify(access)}`)
+    redirect(res, `${appUrl}#${qs.stringify(access)}`)
   })
 )
