@@ -43,7 +43,7 @@ module.exports = router(
     const { error, code } = req.query
 
     if (error) {
-      return send(res, 404, error)
+      return send(res, 403, error)
     }
 
     const access = await rp({
@@ -56,6 +56,10 @@ module.exports = router(
         redirect_uri: authHost + paths.token
       }
     })
+
+    if (access.error || !access.ok) {
+      return send(res, 403, access.error || 'Not ok')
+    }
 
     redirect(res, `${appUrl}#${JSON.stringify(access)}`)
   })
