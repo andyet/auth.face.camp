@@ -43,7 +43,7 @@ module.exports = router(
     const { error, code } = req.query
 
     if (error) {
-      return redirect(res, `${appUrl}?${qs.stringify({ error })}`)
+      return send(res, 404, error)
     }
 
     const access = await rp({
@@ -57,6 +57,6 @@ module.exports = router(
       }
     })
 
-    redirect(res, `${appUrl}#${qs.stringify(access)}`)
+    redirect(res, `${appUrl}#${JSON.stringify(access)}`)
   })
 )
