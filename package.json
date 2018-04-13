@@ -13,6 +13,9 @@
   "devDependencies": {
     "prettier": "^1.11.1"
   },
+  "engines": {
+    "node": "^8.0.0"
+  },
   "keywords": [],
   "license": "ISC",
   "main": "index.js",
