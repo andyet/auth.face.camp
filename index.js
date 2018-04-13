@@ -37,7 +37,7 @@ module.exports = router(
         client_id: clientId,
         client_secret: clientSecret,
         redirect_uri: authHost + paths.token,
-        scope: 'chat:write:user files:write:user channels:read'
+        scope: 'files:write:user channels:read'
       })}`
     )
   ),
