@@ -14,6 +14,10 @@ const {
   NODE_ENV
 } = process.env
 
+if (!clientId || !clientSecret) {
+  throw new Error('CLIENT_ID and CLIENT_SECRET are required .env variables')
+}
+
 const paths = {
   token: '/token',
   auth: '/'
