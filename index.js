@@ -30,6 +30,7 @@ const redirect = (res, location) => {
 }
 
 module.exports = router(
+  get('/healthcheck', (req, res) => send(res, 200, 'ok')),
   get(paths.auth, (req, res) =>
     redirect(
       res,
