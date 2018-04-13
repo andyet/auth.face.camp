@@ -25,20 +25,18 @@ const redirect = (res, location) => {
   res.end()
 }
 
-if (NODE_ENV !== 'production') {
-  console.log(authHost + paths.auth)
-}
-
 module.exports = router(
-  get(paths.auth, (req, res) => {
-    const params = qs.stringify({
-      client_id: clientId,
-      client_secret: clientSecret,
-      redirect_uri: authHost + paths.token,
-      scope: 'chat:write:user files:write:user channels:read'
-    })
-    redirect(res, `https://slack.com/oauth/authorize?${params}`)
-  }),
+  get(paths.auth, (req, res) =>
+    redirect(
+      res,
+      `https://slack.com/oauth/authorize?${qs.stringify({
+        client_id: clientId,
+        client_secret: clientSecret,
+        redirect_uri: authHost + paths.token,
+        scope: 'chat:write:user files:write:user channels:read'
+      })}`
+    )
+  ),
   get(paths.token, async (req, res) => {
     const { error, code } = req.query
 
