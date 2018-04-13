@@ -1,7 +1,7 @@
 pipeline:
   build_docker:
     image: plugins/docker
-    repo: andyet/auth.face.camp
+    repo: andyet/facecamp-auth
     tags: 
       - ${DRONE_COMMIT_SHA:0:8}
       - ${DRONE_TAG##v}
@@ -14,7 +14,7 @@ pipeline:
     kubernetes_cert: ${KUBERNETES_CERT}
     kubernetes_token: ${KUBERNETES_TOKEN}
     deployment: facecamp-auth
-    repo: andyet/auth.face.camp
+    repo: andyet/facecamp-auth
     container: facecamp-auth
     namespace: default
     tag: 
