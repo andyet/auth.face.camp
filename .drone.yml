@@ -1,0 +1,29 @@
+pipeline:
+  build_docker:
+    image: plugins/docker
+    repo: andyet/facecamp-auth
+    tags: 
+      - ${DRONE_COMMIT_SHA:0:8}
+      - ${DRONE_TAG##v}
+    secrets: [ docker_username, docker_password ]
+    when:
+      event: [ tag ]
+  deploy:
+    image: quay.io/honestbee/drone-kubernetes
+    kubernetes_server: ${KUBERNETES_SERVER}
+    kubernetes_cert: ${KUBERNETES_CERT}
+    kubernetes_token: ${KUBERNETES_TOKEN}
+    deployment: facecamp-auth
+    repo: andyet/facecamp-auth
+    container: facecamp-auth
+    namespace: default
+    tag: 
+    - ${DRONE_TAG##v}
+    when:
+      event: tag
+    secrets: [ kubernetes_cert, kubernetes_server, kubernetes_token ]
+  slack:
+    image: plugins/slack
+    username: drone
+    channel: alerts
+    secrets: [ slack_webhook ]
