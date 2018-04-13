@@ -35,7 +35,7 @@ module.exports = router(
       client_id: clientId,
       client_secret: clientSecret,
       redirect_uri: authHost + paths.token,
-      scope: 'chat:write:user channels:read'
+      scope: 'chat:write:user files:write:user channels:read'
     })
     redirect(res, `https://slack.com/oauth/authorize?${params}`)
   }),
