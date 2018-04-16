@@ -34,3 +34,5 @@ If you are testing on a device on your network, you'll need to use the url that 
 AUTH_HOST=http://192.168.1.89:3000
 APP_URL=https://192.168.1.89:8080
 ```
+
+_You will also need to whitelist your local IP address in your [Slack app's settings](https://api.slack.com/apps)._
