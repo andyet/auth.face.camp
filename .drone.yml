@@ -7,7 +7,7 @@ pipeline:
       - latest
     secrets: [ docker_username, docker_password ]
     when:
-      event: [ deploy ]
+      event: deployment
   deploy:
     image: quay.io/honestbee/drone-kubernetes
     kubernetes_server: ${KUBERNETES_SERVER}
@@ -20,7 +20,7 @@ pipeline:
     tag: 
     - latest
     when:
-      event: deploy
+      event: deployment
     secrets: [ kubernetes_cert, kubernetes_server, kubernetes_token ]
   slack:
     image: plugins/slack
