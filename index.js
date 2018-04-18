@@ -31,8 +31,8 @@ const redirect = (res, location) => {
 
 module.exports = router(
   get('/healthcheck', (req, res) => {
-    console.log('facecamp is so so healthy')
-    send(res, 200, 'ok')
+    console.log('facecamp is so healthy')
+    send(res, 200, 'ok!')
   }),
   get(paths.auth, (req, res) =>
     redirect(
