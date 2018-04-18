@@ -30,7 +30,10 @@ const redirect = (res, location) => {
 }
 
 module.exports = router(
-  get('/healthcheck', (req, res) => send(res, 200, 'ok', console.log('facecamp is so healthy'))),
+  get('/healthcheck', (req, res) => {
+    console.log('facecamp is so healthy')
+    send(res, 200, 'ok!')
+  }),
   get(paths.auth, (req, res) =>
     redirect(
       res,
@@ -64,6 +67,6 @@ module.exports = router(
       return send(res, 403, access.error || 'Not ok')
     }
 
-    redirect(res, `${appUrl}#${JSON.stringify(access)}`)
+    redirect(res, `${appUrl}#${encodeURIComponent(JSON.stringify(access))}`)
   })
 )

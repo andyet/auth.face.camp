@@ -21,7 +21,7 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "deploy": "now -e NODE_ENV=production -E .env --public",
+    "lint": "prettier --write *.{js,md}",
     "start": "micro -p ${PORT:-3000}"
   }
 }
