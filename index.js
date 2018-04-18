@@ -67,6 +67,6 @@ module.exports = router(
       return send(res, 403, access.error || 'Not ok')
     }
 
-    redirect(res, `${appUrl}#${JSON.stringify(access)}`)
+    redirect(res, `${appUrl}#${encodeURIComponent(JSON.stringify(access))}`)
   })
 )

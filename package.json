@@ -21,6 +21,7 @@
   "main": "index.js",
   "private": true,
   "scripts": {
+    "lint": "prettier --write *.{js,md}",
     "start": "micro -p ${PORT:-3000}"
   }
 }
