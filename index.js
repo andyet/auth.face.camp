@@ -34,6 +34,7 @@ module.exports = router(
     console.log('facecamp is so healthy')
     send(res, 200, 'ok')
   }),
+  get('/app', (req, res) => redirect(res, appUrl)),
   get(paths.auth, (req, res) =>
     redirect(
       res,
