@@ -35,17 +35,29 @@ module.exports = router(
     send(res, 200, 'ok!')
   }),
   get('/app', (req, res) => redirect(res, appUrl)),
-  get(paths.auth, (req, res) =>
+  get(paths.auth, (req, res) => {
+    // App can always post files and get public channels
+    const scope = ['files:write:user', 'channels:read']
+
+    const { types = '' } = req.query
+    if (types && typeof types === 'string') {
+      scope.push(
+        ...['groups', 'im', 'mpim']
+          .filter((type) => types.includes(type))
+          .map((type) => `${type}:read`)
+      )
+    }
+
     redirect(
       res,
       `https://slack.com/oauth/authorize?${qs.stringify({
         client_id: clientId,
         client_secret: clientSecret,
         redirect_uri: authHost + paths.token,
-        scope: 'files:write:user channels:read'
+        scope: scope.join(' ')
       })}`
     )
-  ),
+  }),
   get(paths.token, async (req, res) => {
     const { error, code } = req.query
 
