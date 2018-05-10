@@ -44,7 +44,9 @@ module.exports = router(
       scope.push(
         ...['groups', 'im', 'mpim']
           .filter((type) => types.includes(type))
-          .map((type) => `${type}:read`)
+          .map((type) =>
+            `${type === 'im' ? 'users:read' : ''} ${type}:read`.trim()
+          )
       )
     }
 
