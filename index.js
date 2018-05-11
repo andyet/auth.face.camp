@@ -36,18 +36,25 @@ module.exports = router(
   }),
   get('/app', (req, res) => redirect(res, appUrl)),
   get(paths.auth, (req, res) => {
-    // App can always post files and get public channels
-    const scope = ['files:write:user', 'channels:read']
+    // App can always post files
+    const scope = ['files:write:user']
 
     const { types = '' } = req.query
     if (types && typeof types === 'string') {
       scope.push(
-        ...['groups', 'im', 'mpim']
+        ...['channels', 'groups', 'im', 'mpim']
           .filter((type) => types.includes(type))
           .map((type) =>
             `${type === 'im' ? 'users:read' : ''} ${type}:read`.trim()
           )
       )
+    }
+
+    // If no other scopes have been added then add channels read to allow
+    // the app to work. This allows the client to request other scopes without
+    // public channels
+    if (scope.length === 1) {
+      scope.push('channels:read')
     }
 
     redirect(
