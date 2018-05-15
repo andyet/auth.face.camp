@@ -1,26 +1,16 @@
 const { send } = require('micro')
-const dotenv = require('dotenv')
 const rp = require('request-promise')
 const { router, get } = require('microrouter')
 const qs = require('qs')
+const config = require('getconfig')
 
-dotenv.config()
-
-const {
-  CLIENT_ID: clientId,
-  CLIENT_SECRET: clientSecret,
-  AUTH_HOST: authHost,
-  APP_URL: appUrl,
-  NODE_ENV
-} = process.env
-
-if (!clientId || !clientSecret) {
-  throw new Error('CLIENT_ID and CLIENT_SECRET are required .env variables')
-}
+const { clientId, clientSecret, authHost, appUrl } = config
 
 const paths = {
   token: '/token',
-  auth: '/'
+  auth: '/',
+  app: '/app',
+  healthcheck: '/healthcheck'
 }
 
 const redirect = (res, location) => {
@@ -30,11 +20,11 @@ const redirect = (res, location) => {
 }
 
 module.exports = router(
-  get('/healthcheck', (req, res) => {
+  get(paths.healthcheck, (req, res) => {
     console.log(Date.now(), 'facecamp is so healthy')
     send(res, 200, 'ok!')
   }),
-  get('/app', (req, res) => redirect(res, appUrl)),
+  get(paths.app, (req, res) => redirect(res, appUrl)),
   get(paths.auth, (req, res) => {
     // App can always post files
     const scope = ['files:write:user']

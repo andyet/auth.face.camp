@@ -3,7 +3,7 @@
   "description": "Facecamp Auth Server",
   "version": "1.0.0",
   "dependencies": {
-    "dotenv": "^5.0.1",
+    "getconfig": "^4.4.1",
     "micro": "^9.1.4",
     "microrouter": "^3.1.1",
     "qs": "^6.5.1",

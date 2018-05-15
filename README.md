@@ -3,36 +3,38 @@
 ## Setup
 
 ```sh
-touch .env # Add env values
 npm install
 npm start
 ```
 
-## Usage
+## Local Dev
 
-1.  Start app server from [facecamp repo](https://github.com/lukekarrys/facecamp)
+1.  Start app server from [facecamp repo](https://github.com/andyet/face.camp)
 2.  Open the app at [localhost:8080](https://localhost:8080)
 
-## `.env`
+### `clientId` and `clientSecret`
 
-Your local `.env` file will need your Slack app's `CLIENT_ID` and `CLIENT_SECRET`.
+To set these create a `config/local.json` file:
 
-### `AUTH_HOST` and `APP_URL`
-
-It will also need the `AUTH_HOST` and `APP_URL`.
-
-When developing locally use these values in your `.env` file:
-
-```
-AUTH_HOST=http://localhost:3000
-APP_URL=https://localhost:8080
+```sh
+cp config/development.json config/local.json
 ```
 
-If you are testing on a device on your network, you'll need to use the url that is displayed in the app's startup message (eg `On Your Network: https://192.168.1.89:8080`) instead of `localhost`:
+This file will be ignored from git so its safe to put the `clientId` and `clientSecret` in here.
 
-```
-AUTH_HOST=http://192.168.1.89:3000
-APP_URL=https://192.168.1.89:8080
+You can get these from [the Slack app's settings](https://api.slack.com/apps/AA4PZPLQL). If you don't have access to that, ask @lukekarrys and he'll add you as a collaborator or give you the credentials.
+
+### `authHost` and `appUrl`
+
+By default `config/development.json` has `authHost` and `appUrl` set for local development.
+
+If you are testing on a device on your network, you'll need to use the url that is displayed in the app's startup message (eg `On Your Network: https://192.168.1.89:8080`) instead of `localhost` and set those in `config/local.json`.
+
+```json
+{
+  "authHost": "http://192.168.1.89:3000",
+  "appUrl": "https://192.168.1.89:8080"
+}
 ```
 
 _You will also need to whitelist your local IP address in your [Slack app's settings](https://api.slack.com/apps)._
