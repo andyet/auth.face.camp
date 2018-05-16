@@ -22,7 +22,7 @@ const redirect = (res, location) => {
 module.exports = router(
   get(paths.healthcheck, (req, res) => {
     console.log(Date.now(), 'facecamp is so healthy')
-    send(res, 200, 'ok!')
+    send(res, 200, JSON.stringify({ authHost, appUrl }))
   }),
   get(paths.app, (req, res) => redirect(res, appUrl)),
   get(paths.auth, (req, res) => {
