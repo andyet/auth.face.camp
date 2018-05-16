@@ -17,8 +17,7 @@ pipeline:
     repo: andyet/facecamp-auth
     container: facecamp-auth
     namespace: default
-    tag: 
-    - latest
+    tag: ${DRONE_COMMIT_SHA:0:8}
     when:
       event: deployment
     secrets: [ kubernetes_cert, kubernetes_server, kubernetes_token ]
