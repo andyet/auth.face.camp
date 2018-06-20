@@ -62,3 +62,7 @@ typings/
 
 # local config
 config/local.json
+secrets.yaml
+drone-secrets.sh
+secrets.yaml
+drone-secrets.sh
