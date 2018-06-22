@@ -55,14 +55,12 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
+*.env
 
 # next.js build output
 .next
 
 # local config
 config/local.json
-secrets.yaml
-drone-secrets.sh
 secrets.yaml
 drone-secrets.sh

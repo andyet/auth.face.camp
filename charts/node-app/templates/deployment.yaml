@@ -1,0 +1,49 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.name }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    name: {{ .Values.deployment.name }}
+spec:
+  selector:
+    matchLabels:
+      name: {{ .Values.deployment.name }}
+  strategy:
+{{ toYaml .Values.deployment.strategy | trimSuffix "\n" | indent 4 }}
+  template:
+    metadata:
+      labels:
+        name: {{ .Values.deployment.name }}
+      name: {{ .Values.deployment.name }}
+    spec:
+      dnsPolicy: {{ .Values.deployment.dnsPolicy }}
+      imagePullSecrets: 
+      - name: {{ .Values.deployment.imagePullSecrets }}
+      restartPolicy: {{ .Values.deployment.restartPolicy }}
+      containers:
+      - name: {{ .Values.deployment.name }}
+        image: {{ .Values.deployment.image.repository }}
+        imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.service.internalPort }}
+        {{- if .Values.deployment.readiness }}
+        readinessProbe:
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+          timeoutSeconds: 5
+{{ toYaml .Values.deployment.readiness | trimSuffix "\n" | indent 10 }}
+        {{- end }}
+        envFrom:
+          {{- if .Values.config.data }}
+          - configMapRef:
+              name: {{ .Values.deployment.name }}
+          {{- end }}
+          {{- if .Values.secrets.data }}
+          - secretRef:
+              name: {{ .Values.deployment.name }}
+          {{- end }}
+
+      
