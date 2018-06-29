@@ -3,8 +3,9 @@ const rp = require('request-promise')
 const { router, get } = require('microrouter')
 const qs = require('qs')
 const config = require('getconfig')
+const { version } = require('./package.json')
 
-const { clientId, clientSecret, authHost, appUrl } = config
+const { clientId, clientSecret, authHost, appUrl, getconfig } = config
 
 const paths = {
   token: '/token',
@@ -22,7 +23,7 @@ const redirect = (res, location) => {
 module.exports = router(
   get(paths.healthcheck, (req, res) => {
     console.log(Date.now(), 'facecamp is so healthy')
-    send(res, 200, JSON.stringify({ authHost, appUrl }))
+    send(res, 200, JSON.stringify({ version, env: getconfig.env }))
   }),
   get(paths.app, (req, res) => redirect(res, appUrl)),
   get(paths.auth, (req, res) => {
