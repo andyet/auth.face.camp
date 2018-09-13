@@ -1,10 +1,10 @@
-FROM node:8-alpine
+FROM node:10
 
 ENV NODE_ENV=production
 
 ADD . /app
 WORKDIR /app
 
-RUN npm i
+RUN npm ci
 
 CMD ["npm", "start"]

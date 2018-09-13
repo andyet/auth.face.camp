@@ -2,7 +2,7 @@ pipeline:
   build_docker:
     image: plugins/docker
     repo: andyet/facecamp-auth
-    tags: 
+    tags:
       - ${DRONE_COMMIT_SHA:0:8}
       - latest
     secrets: [ docker_username, docker_password ]
@@ -22,5 +22,7 @@ pipeline:
   slack:
     image: plugins/slack
     username: drone
-    channel: alerts
+    channel: io-alerts
     secrets: [ slack_webhook ]
+    when:
+      status: [ success, failure ]
