@@ -28,7 +28,7 @@ You can get these from [the Slack app's settings](https://api.slack.com/apps/AA4
 
 By default `config/development.json` has `authHost` and `appUrl` set for local development.
 
-If you are testing on a device on your network, you'll need to use the url that is displayed in the app's startup message (eg `On Your Network: https://192.168.1.89:8080`) instead of `localhost` and set those in `config/local.json`.
+If you are testing on a device on your network, you'll need to use the url that is displayed in the app's startup message (eg `On Your Network: https://192.168.1.89:8080`) instead of `localhost` and set those in `config/local.json`. Note that `authHost` is `http` while `appUrl` is `https`. This is because `https` is required to get the user's webcam in the app, but not when running this auth server locally.
 
 ```json
 {
