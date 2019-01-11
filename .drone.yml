@@ -2,27 +2,27 @@ pipeline:
   build_docker:
     image: plugins/docker
     repo: andyet/facecamp-auth
-    tags: 
+    tags:
       - ${DRONE_COMMIT_SHA:0:8}
       - latest
     secrets: [ docker_username, docker_password ]
     when:
       event: deployment
-  deploy:
-    image: quay.io/honestbee/drone-kubernetes
-    kubernetes_server: ${KUBERNETES_SERVER}
-    kubernetes_cert: ${KUBERNETES_CERT}
-    kubernetes_token: ${KUBERNETES_TOKEN}
-    deployment: facecamp-auth
-    repo: andyet/facecamp-auth
-    container: facecamp-auth
-    namespace: default
-    tag: ${DRONE_COMMIT_SHA:0:8}
+  helm_deploy_prod:
+    image: andyet/drone-helm:latest
+    pull: true
+    skip_tls_verify: false
+    chart: ./charts/node-app
+    prefix: PROD
+    release: facecamp-auth
+    values: secrets.data.CLIENT_SECRET=$${CLIENT_SECRET},secrets.data.CLIENT_ID=$${CLIENT_ID}
+    secrets: [ PROD_CLIENT_SECRET, PROD_CLIENT_ID, PROD_KUBERNETES_CERTIFICATE, PROD_KUBERNETES_TOKEN, PROD_API_SERVER ]
     when:
       event: deployment
-    secrets: [ kubernetes_cert, kubernetes_server, kubernetes_token ]
   slack:
     image: plugins/slack
     username: drone
-    channel: alerts
+    channel: io-alerts
     secrets: [ slack_webhook ]
+    when:
+      status: [ success, failure ]
