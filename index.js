@@ -62,7 +62,7 @@ module.exports = router(
     const { error, code } = req.query
 
     if (error) {
-      return send(res, 403, error)
+      return send(res, 403, 'Error')
     }
 
     const access = await rp({
