@@ -26,4 +26,5 @@ pipeline:
     channel: io-alerts
     secrets: [ slack_webhook, github_access_token, github_slack_lookup ]
     when:
+      event: deployment
       status: [ success, failure ]
