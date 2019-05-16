@@ -22,7 +22,7 @@ cp config/development.json config/local.json
 
 This file will be ignored from git so its safe to put the `clientId` and `clientSecret` in here.
 
-You can get these from [the Slack app's settings](https://api.slack.com/apps/AA4PZPLQL/published-settings). If you don't have access to that, ask @lukekarrys and he'll add you as a collaborator or give you the credentials.
+You can get these by creating [a Slack app](https://api.slack.com/apps).
 
 ### `authHost` and `appUrl`
 
