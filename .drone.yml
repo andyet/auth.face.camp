@@ -10,13 +10,20 @@ pipeline:
       event: deployment
   helm_deploy_prod:
     image: andyet/drone-helm:latest
-    pull: true
     skip_tls_verify: false
-    chart: ./charts/node-app
+    chart: andyet/node-app
     prefix: PROD
+    recreate_pods: true
+    helm_repos: andyet=https://andyet-helm-charts.storage.googleapis.com/
     release: facecamp-auth
     values: secrets.data.CLIENT_SECRET=$${CLIENT_SECRET},secrets.data.CLIENT_ID=$${CLIENT_ID}
-    secrets: [ PROD_CLIENT_SECRET, PROD_CLIENT_ID, PROD_KUBERNETES_CERTIFICATE, PROD_KUBERNETES_TOKEN, PROD_API_SERVER ]
+    values_files: values.yaml
+    secrets:
+      - PROD_CLIENT_SECRET
+      - PROD_CLIENT_ID
+      - PROD_KUBERNETES_CERTIFICATE
+      - PROD_KUBERNETES_TOKEN
+      - PROD_API_SERVER
     when:
       event: deployment
   slack:
