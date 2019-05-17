@@ -1,0 +1,29 @@
+# Default values for node.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+deployment:
+  replicaCount: 1
+  name: facecamp-auth
+  image:
+    repository: andyet/facecamp-auth:latest
+    pullPolicy: Always
+  strategy:
+    type: Recreate
+  imagePullSecrets: andyet-registry
+  restartPolicy: Always
+  dnsPolicy: ClusterFirst
+  readiness:
+    enabled: true
+    httpGet:
+      path: /healthcheck
+      port: 3000
+service:
+  type: NodePort
+  internalPort: 3000
+ingress:
+  domain: auth.face.camp
+  tls:
+    enabled: true
+    secret: facecamp-auth-tls
+  annotations:
+    kubernetes.io/ingress.class: gce
