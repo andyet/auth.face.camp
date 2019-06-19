@@ -1,4 +1,11 @@
 pipeline:
+  build:
+    image: node:10
+    commands:
+      - npm install
+      - npm run test
+    when:
+      event: [push, pull_request]
   build_docker:
     image: plugins/docker
     repo: andyet/facecamp-auth
@@ -6,8 +13,6 @@ pipeline:
       - ${DRONE_COMMIT_SHA:0:8}
       - latest
     secrets: [docker_username, docker_password]
-    commands:
-      - npm test
     when:
       event: deployment
   helm_deploy_prod:
