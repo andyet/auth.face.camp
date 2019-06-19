@@ -5,7 +5,9 @@ pipeline:
     tags:
       - ${DRONE_COMMIT_SHA:0:8}
       - latest
-    secrets: [ docker_username, docker_password ]
+    secrets: [docker_username, docker_password]
+    commands:
+      - npm test
     when:
       event: deployment
   helm_deploy_prod:
@@ -31,7 +33,7 @@ pipeline:
     username: drone
     pull: true
     channel: io-alerts
-    secrets: [ slack_webhook, github_access_token, github_slack_lookup ]
+    secrets: [slack_webhook, github_access_token, github_slack_lookup]
     when:
       event: deployment
-      status: [ success, failure ]
+      status: [success, failure]
