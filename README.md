@@ -1,5 +1,7 @@
 # facecamp-auth
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/andyet/auth.face.camp.svg)](https://greenkeeper.io/)
+
 ## Setup
 
 ```sh
