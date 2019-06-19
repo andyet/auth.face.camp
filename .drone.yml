@@ -1,11 +1,18 @@
 pipeline:
+  build:
+    image: node:10
+    commands:
+      - npm install
+      - npm run test
+    when:
+      event: [push, pull_request]
   build_docker:
     image: plugins/docker
     repo: andyet/facecamp-auth
     tags:
       - ${DRONE_COMMIT_SHA:0:8}
       - latest
-    secrets: [ docker_username, docker_password ]
+    secrets: [docker_username, docker_password]
     when:
       event: deployment
   helm_deploy_prod:
@@ -31,7 +38,7 @@ pipeline:
     username: drone
     pull: true
     channel: io-alerts
-    secrets: [ slack_webhook, github_access_token, github_slack_lookup ]
+    secrets: [slack_webhook, github_access_token, github_slack_lookup]
     when:
       event: deployment
-      status: [ success, failure ]
+      status: [success, failure]

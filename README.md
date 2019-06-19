@@ -16,13 +16,13 @@ npm start
 
 ### `clientId` and `clientSecret`
 
-To set these create a `config/local.json` file:
+To set these create a `.env` file:
 
 ```sh
-cp config/development.json config/local.json
+echo "CLIENT_ID=\nCLIENT_SECRET=\n" > .env
 ```
 
-This file will be ignored from git so its safe to put the `clientId` and `clientSecret` in here.
+This file will be ignored from git so its safe to put your `CLIENT_ID` and `CLIENT_SECRET` in here.
 
 You can get these by creating [a Slack app](https://api.slack.com/apps).
 
@@ -30,7 +30,7 @@ You can get these by creating [a Slack app](https://api.slack.com/apps).
 
 By default `config/development.json` has `authHost` and `appUrl` set for local development.
 
-If you are testing on a device on your network, you'll need to use the url that is displayed in the app's startup message (eg `On Your Network: https://192.168.1.89:8080`) instead of `localhost` and set those in `config/local.json`. Note that `authHost` is `http` while `appUrl` is `https`. This is because `https` is required to get the user's webcam in the app, but not when running this auth server locally.
+If you are testing on a device on your network, you'll need to use the url that is displayed in the app's startup message (eg `On Your Network: https://192.168.1.89:8080`) instead of `localhost` and set those in `config/development.json`. Note that `authHost` is `http` while `appUrl` is `https`. This is because `https` is required to get the user's webcam in the app, but not when running this auth server locally.
 
 ```json
 {
