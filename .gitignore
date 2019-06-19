@@ -61,6 +61,6 @@ typings/
 .next
 
 # local config
-config/local.json
+.env
 secrets.yaml
 drone-secrets.sh

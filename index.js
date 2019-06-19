@@ -22,7 +22,6 @@ const redirect = (res, location) => {
 
 module.exports = router(
   get(paths.healthcheck, (req, res) => {
-    console.log(Date.now(), 'facecamp is so healthy')
     send(res, 200, JSON.stringify({ version, env: getconfig.env }))
   }),
   get(paths.app, (req, res) => redirect(res, appUrl)),
@@ -34,7 +33,7 @@ module.exports = router(
     if (types && typeof types === 'string') {
       scope.push(
         ...['channels', 'groups', 'im', 'mpim']
-          .filter((type) => types.includes(type))
+          .filter((type) => types.split(',').includes(type))
           .map((type) =>
             `${type === 'im' ? 'users:read' : ''} ${type}:read`.trim()
           )
@@ -48,15 +47,14 @@ module.exports = router(
       scope.push('channels:read')
     }
 
-    redirect(
-      res,
-      `https://slack.com/oauth/authorize?${qs.stringify({
-        client_id: clientId,
-        client_secret: clientSecret,
-        redirect_uri: authHost + paths.token,
-        scope: scope.join(' ')
-      })}`
-    )
+    const redirectUrl = `https://slack.com/oauth/authorize?${qs.stringify({
+      client_id: clientId,
+      client_secret: clientSecret,
+      redirect_uri: authHost + paths.token,
+      scope: scope.join(' ')
+    })}`
+
+    redirect(res, redirectUrl)
   }),
   get(paths.token, async (req, res) => {
     const { error, code } = req.query
@@ -80,6 +78,14 @@ module.exports = router(
       return send(res, 403, access.error || 'Not ok')
     }
 
-    redirect(res, `${appUrl}#${encodeURIComponent(JSON.stringify(access))}`)
+    redirect(
+      res,
+      `${appUrl}${
+        // This makes it easier to test that we are redirecting with the proper
+        // information since we cant access the url hash from the request. This
+        // is a good thing as far as the app is concerned, but makes it impossible to test/
+        getconfig.env === 'test' ? '?query=' : '#'
+      }${encodeURIComponent(JSON.stringify(access))}`
+    )
   })
 )
