@@ -19,7 +19,7 @@ npm start
 To set these create a `.env` file:
 
 ```sh
-echo "CLIENT_ID=\nCLIENT_SECRET=\n" > .env
+echo "CLIENT_ID=\nCLIENT_SECRET=" > .env
 ```
 
 This file will be ignored from git so its safe to put your `CLIENT_ID` and `CLIENT_SECRET` in here.
