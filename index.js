@@ -22,7 +22,7 @@ const redirect = (res, location) => {
 
 module.exports = router(
   get(paths.healthcheck, (req, res) => {
-    send(res, 200, JSON.stringify({ version, env: getconfig.env }))
+    send(res, 200, JSON.stringify({ version, env: getconfig.env, test: 'bad' }))
   }),
   get(paths.app, (req, res) => redirect(res, appUrl)),
   get(paths.auth, (req, res) => {
