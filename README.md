@@ -1,6 +1,6 @@
 # facecamp-auth
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/andyet/auth.face.camp.svg)](https://greenkeeper.io/)
+**This functionality is now included in the main [https://github.com/andyet/face.camp](face.camp) repo.**
 
 ## Setup
 
