@@ -1,6 +1,6 @@
 # facecamp-auth
 
-**This functionality is now included in the main [face.camp](https://github.com/andyet/face.camp) repo.**
+**This repo is no longer used. This functionality is now included in the main [face.camp](https://github.com/andyet/face.camp) repo.**
 
 ## Setup
 
